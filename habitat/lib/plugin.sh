@@ -35,6 +35,7 @@ do_git_source_download() {
             cd "$CACHE_PATH"
             build_line "Git repository $CACHE_PATH exists. Attempt to reuse"
             # shellcheck disable=SC2154
+            git remote | grep "^$pkg_git_source_origin\$" || git remote add "$pkg_git_source_origin" "$pkg_source"
             git remote set-url "$pkg_git_source_origin" "$pkg_source"
             git fetch --depth "$pkg_git_source_depth" "$pkg_git_source_origin" +refs/heads/"$pkg_git_source_branch":refs/remotes/"$pkg_git_source_origin"/"$pkg_git_source_branch"
         )
